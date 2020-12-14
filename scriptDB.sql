@@ -1,0 +1,66 @@
+DROP DATABASE myCreativePlace;
+
+CREATE DATABASE myCreativePlace;
+
+USE myCreativePlace;
+
+CREATE TABLE users (
+	id INT NOT NULL AUTO_INCREMENT,
+	email VARCHAR(25) NOT NULL,
+	password VARCHAR(50) NOT NULL,
+	PRIMARY KEY(id),
+	UNIQUE(email)
+);
+
+CREATE TABLE profiles (
+	id INT NOT NULL AUTO_INCREMENT,
+	user_id INT NOT NULL,
+	first_name VARCHAR(20) NOT NULL,
+	last_name VARCHAR(20) NOT NULL,
+	bio VARCHAR(255),
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE users_roles (
+	id INT NOT NULL AUTO_INCREMENT,
+	user_id INT NOT NULL,
+	role_id INT NOT NULL,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE roles (
+	id INT NOT NULL AUTO_INCREMENT,
+	value VARCHAR(15) NOT NULL,
+	PRIMARY KEY(id),
+	UNIQUE(value)
+);
+
+CREATE TABLE posts (
+	id INT NOT NULL AUTO_INCREMENT,
+	user_id INT NOT NULL,
+	pub_date DATE,
+	content TEXT,
+	PRIMARY KEY(id)
+);
+
+CREATE TABLE comments (
+	id INT NOT NULL AUTO_INCREMENT,
+	user_id INT NOT NULL,
+	post_id INT NOT NULL,
+	comment VARCHAR(255) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+ALTER TABLE profiles ADD CONSTRAINT fk_profile_user FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE users_roles ADD CONSTRAINT fk_user_role_user FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE users_roles ADD CONSTRAINT fk_user_role_role FOREIGN KEY(role_id) REFERENCES roles(id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE posts ADD CONSTRAINT fk_post_user FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE comments ADD CONSTRAINT fk_comment_user FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE comments ADD CONSTRAINT fk_comment_post FOREIGN KEY(post_id) REFERENCES posts(id) ON DELETE CASCADE ON UPDATE CASCADE;
+
+INSERT INTO roles (id, value) VALUES (1, 'user'), (2, 'admin');
