@@ -1,0 +1,19 @@
+{
+  "name": "my-creative-place-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Finlitvin/MyCreativePlace.git"
+  },
+  "author": "Rostislav",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Finlitvin/MyCreativePlace/issues"
+  },
+  "homepage": "https://github.com/Finlitvin/MyCreativePlace#readme"
+}
